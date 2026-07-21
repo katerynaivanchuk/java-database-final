@@ -1,6 +1,6 @@
-package com.project.code.Repo;
+package com.project.code.repo;
 
-public interface StoreRepository {
+public interface StoreRepository extends JpaRepository<Store,Long> {
 // 1. Add the repository interface:
 //    - Extend JpaRepository<Store, Long> to inherit basic CRUD functionality.
 //    - This allows the repository to perform operations like save, delete, update, and find without having to implement these methods manually.
@@ -15,12 +15,18 @@ public interface StoreRepository {
 
 // Example: public Store findById(Long id);
 
+    public Optional<Store> findById(Long id);
+
 //    - **findBySubName**:
 //      - This method will retrieve stores whose name contains a given substring.
 //      - Return type: List<Store>
 //      - Parameter: String pname
 //      - Use @Query annotation to write a custom query.
 
-   
+    @Query("""
+    SELECT * FROM STORE s 
+    WHERE s.name LIKE CONCAT('%', :sname, '%')"
+    """)
+    public List<Store> findBySubName(@Param("sname") String sname);
 
 }

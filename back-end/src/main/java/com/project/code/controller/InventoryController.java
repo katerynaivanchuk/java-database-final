@@ -1,5 +1,9 @@
-package com.project.code.Controller;
+package com.project.code.controller;
 
+import com.project.code.exceptions.*;
+
+@RestController
+@RequestMapping("/inventory")
 public class InventoryController {
 // 1. Set Up the Controller Class:
 //    - Annotate the class with `@RestController` to indicate that this is a REST controller, which handles HTTP requests and responses.
@@ -12,6 +16,14 @@ public class InventoryController {
 //      - `InventoryRepository` will handle CRUD operations related to the inventory.
 //      - `ServiceClass` will help with the validation logic (e.g., validating product IDs and inventory data).
 
+    @Autowired
+    private final ProductRepository productRepository;
+
+    @Autowired
+    private final InventoryRepository inventoryRepository;
+
+    @Autowired
+    private final ServiceClass serviceClass;
 
 // 3. Define the `updateInventory` Method:
 //    - This method handles HTTP PUT requests to update inventory for a product.
@@ -19,6 +31,45 @@ public class InventoryController {
 //    - The product ID is validated, and if valid, the inventory is updated in the database.
 //    - If the inventory exists, update it and return a success message. If not, return a message indicating no data available.
 
+    @PutMapping()
+    public Map<String,String> updateInventory(@RequestBody CombineRequest request) {
+        try{
+            Map<String, String> response = new HashMap<>();
+
+            Product product = request.getProduct();
+            Inventory inventory = request.getInventory();
+
+            boolean productValidation = serviceClass.validateProductId(product.getId());
+            if(!productValidation) {
+                response.put("message", "Product doesn't exist");
+                return response;
+            }
+
+            Inventory existingInventory = inventoryRepository.findByProductIdandStoreId(product.getId(), inventory.getStore().getId());
+            if(existingInventory == null) {
+                response.put("message", "No data available");
+                return response;
+            }
+
+            Product existingProduct = existingInventory.getProduct();
+            existingProduct.setName(product.getName());
+            existingProduct.setCategory(product.getCategory());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setSku(product.getSku());
+
+            productRepository.save(existingProduct);
+
+            existingInventory.setStockLevel(inventory.getStockLevel());
+            inventoryRepository.save(existingInventory);
+            
+            response.put("message", "Successfully updated product");
+            return response;
+        } catch (DataIntegrityViolationException e) {
+            System.out.println(e.getMessage())
+        }
+        
+
+    }
 
 // 4. Define the `saveInventory` Method:
 //    - This method handles HTTP POST requests to save a new inventory entry.

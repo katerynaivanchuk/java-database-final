@@ -1,4 +1,4 @@
-package com.project.code.Model;
+package com.project.code.model;
 
 
 public class PurchaseProductDTO {

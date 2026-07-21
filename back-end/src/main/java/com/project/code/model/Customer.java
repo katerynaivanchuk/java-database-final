@@ -46,7 +46,7 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     @JsonManagedReference
-    private List<Order> orders;
+    private List<OrderDetails> orders;
 
 // 6. Getters and Setters:
 //    - For each field ('id', 'name', 'email', 'phone'), add getter and setter methods.
@@ -54,37 +54,43 @@ public class Customer {
 //    - Example: public String getName(), public void setName(String name)
 //    - Add getters and setters for 'email' and 'phone' fields as well.
 
-        public Long getId() {
-            return this.id;
-        }
+    Customer(String name, String email, Strig phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 
-        public String getName() {
-            return this.name;
-        }
+    public Long getId() {
+        return this.id;
+    }
 
-        public String getEmail() {
-            return this.email;
-        }
+    public String getName() {
+        return this.name;
+    }
 
-        public String getPhone() {
-            return this.phone;
-        }
+    public String getEmail() {
+        return this.email;
+    }
 
-        public void setId(Long id) {
-            this.id = id;
-        }
+    public String getPhone() {
+        return this.phone;
+    }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public void setPhone(String phone) {
-            this.phone = phone;
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
         
 // 7. Ensure to use proper annotations and validate constraints:
 //    - Use @NotNull for fields that cannot be empty like 'name', 'email', and 'phone'.

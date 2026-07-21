@@ -1,5 +1,6 @@
-package com.project.code.Model;
+package com.project.code.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -88,6 +89,40 @@ public class OrderDetails {
         return this.store;
     }
 
+    public Double getTotalPrice() {
+        return this.totalPrice;
+    }
 
+    public LocalDateTime getDate() {
+        return this.date;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return this.orderItems;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public void setOrderItems(List<OrderItems> orderItems) {
+        this.orderItems = orderItems; 
+    }
     
 }
