@@ -1,6 +1,6 @@
-package com.project.code.Model;
+package com.project.code.model;
 
-
+@Entity
 public class Inventory {
    // 1. Add 'id' field:
 //    - Type: private long 
@@ -8,19 +8,34 @@ public class Inventory {
 //    - Use @Id to mark it as the primary key.
 //    - Use @GeneratedValue(strategy = GenerationType.IDENTITY) to auto-increment it.
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    private Long id;
+
 // 2. Add 'product' field:
 //    - Type: private Product
 //    - This field will represent the product associated with the inventory entry.
 //    - Use @ManyToOne to establish a many-to-one relationship with the Product entity.
+
+    @ManyToOne
+    @JsonBackReference("inventory-product")
+    @JoinColumn("product_id")
+    private Product product;
 
 // 3. Add 'store' field:
 //    - Type: private Store
 //    - This field will represent the store where the inventory is located.
 //    - Use @ManyToOne to establish a many-to-one relationship with the Store entity.
 
+    @ManyToOne
+    @JsonBackReference("inventory-store")
+    @JoinColumn("store_id")
+    private Store store;
 // 4. Add 'stockLevel' field:
 //    - Type: private Integer
 //    - This field will represent the current stock level of the product at the store.
+
+    private Integer stockLevel;
 
 // 5. Add relationships:
 //    - **Product Relationship**: Use @ManyToOne to link this inventory entry to a product.
@@ -35,6 +50,12 @@ public class Inventory {
 // 7. Create a constructor:
 //    - Add a constructor that takes a Product, Store, and Integer stockLevel to initialize the Inventory object.
 
+    Inventory(Product product, Store store, Integer stockLevel) {
+        this.product = product;
+        this.store = store;
+        this.stockLevel = stockLevel;
+    }
+
 // 8. Add @Entity annotation:
 //    - Use @Entity above the class definition to mark it as a JPA entity that will be mapped to a database table.
 
@@ -45,5 +66,36 @@ public class Inventory {
 //    - Example: public Store getStore(), public void setStore(Store store)
 //    - Example: public Integer getStockLevel(), public void setStockLevel(Integer stockLevel)
 
+    public Long getId() {
+        return this.id;
+    }
+
+    public Product getProduct() {
+        return this.product;
+    }
+
+    public Store getStore() {
+        return this.store;
+    }
+
+    public Integer getStockLevel() {
+        return this.stockLevel;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public void setStockLevel(Integer stockLevel) {
+        this.stockLevel = stockLevel;
+    }
 }
 
