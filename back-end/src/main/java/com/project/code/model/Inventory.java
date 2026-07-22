@@ -24,7 +24,7 @@ public class Inventory {
 
     @ManyToOne
     @JsonBackReference("inventory-product")
-    @JoinColumn(referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id")
     private Product product;
 
 // 3. Add 'store' field:
@@ -34,7 +34,7 @@ public class Inventory {
 
     @ManyToOne
     @JsonBackReference("inventory-store")
-    @JoinColumn(referencedColumnName = "store_id")
+    @JoinColumn(name = "store_id")
     private Store store;
 // 4. Add 'stockLevel' field:
 //    - Type: private Integer

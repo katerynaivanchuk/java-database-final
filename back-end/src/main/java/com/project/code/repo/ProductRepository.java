@@ -76,6 +76,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT i.product FROM Inventory i WHERE i.store.id = :storeId AND LOWER(i.product.name) LIKE LOWER(CONCAT('%', :pname, '%')) AND i.product.category = :category")
     public List<Product> findByNameAndCategory(@Param("storeId") Long storeId, @Param("pname") String pname, @Param("category") String category);
 
+    @Query("""
+       SELECT i.product
+       FROM Inventory i
+       WHERE i.store.id = :storeId
+       """)
     public List<Product> findProductsByStore_Id(Long storeId);
 
     public List<Product> findProductsByNameAndCategory(String name, String category);
