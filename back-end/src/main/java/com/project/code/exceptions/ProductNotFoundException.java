@@ -1,5 +1,7 @@
-public class InventoryNotFoundException extends RuntimeException {
-    public InventoryNotFoundException(Long productId) {
+package com.project.code.exceptions;
+
+public class ProductNotFoundException extends RuntimeException {
+    public ProductNotFoundException(Long productId) {
         super("Product with id " + productId + " is not found");
     }
 }

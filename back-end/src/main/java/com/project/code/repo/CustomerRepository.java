@@ -1,5 +1,11 @@
 package com.project.code.repo;
 
+import com.project.code.model.Customer;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 // 1. Add the repository interface:
@@ -23,7 +29,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 //      - Return type: Customer
 //      - Parameter: Long id
 
-    public Customer findById(Long id);
+    public Optional<Customer> findById(Long id);
       
 // Example: public Customer findById(Long id);
 

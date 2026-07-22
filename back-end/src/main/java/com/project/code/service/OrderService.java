@@ -1,11 +1,17 @@
 package com.project.code.service;
 import com.project.code.exceptions.*;
+import com.project.code.model.*;
+import com.project.code.repo.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class OrderService {
 
     @Autowired
-    private ProductRepository ProductRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -28,41 +34,33 @@ public class OrderService {
 //    - Return Type: `void` (This method doesn't return anything, it just processes the order)
 
 public void saveOrder(PlaceOrderRequestDTO placeOrderRequest) {
-    Customer customer = customerRepository.findByEmail(placeOrderRequest.getCustomerEmail);
+    Customer customer = customerRepository.findByEmail(placeOrderRequest.getCustomerEmail());
 
     if(customer == null) {
         customer = new Customer(placeOrderRequest.getCustomerName(), placeOrderRequest.getCustomerEmail(), placeOrderRequest.getCustomerPhone());
-        customerRepository.save(customer)
+        customerRepository.save(customer);
     }
 
-    Store store = storeRepository.findById(placeOrderRequest.getStoreId());
-    if(store == null) {
-        throw new StoreNotFoundException(placeOrderRequest.getStoreId());
-    }
+    Store store = storeRepository.findById(placeOrderRequest.getStoreId())
+            .orElseThrow(() -> new StoreNotFoundException(placeOrderRequest.getStoreId()));
+
 
     OrderDetails orderDetails = new OrderDetails(customer,store, placeOrderRequest.getTotalPrice(), java.time.LocalDateTime.now());
     orderDetailsRepository.save(orderDetails);
 
     for(PurchaseProductDTO dto: placeOrderRequest.getPurchaseProduct()) {
-        Inventory inventory = inventoryRepository.findByProductIdandStoreId(dto.getId(), store.getId());
-
-        if(store == null) {
-            throw new InventoryNotFoundException(dto.getId(), store.getId());
-        }
+        Inventory inventory = inventoryRepository.findByProduct_IdAndStore_Id(dto.getId(), store.getId());
 
         Integer stockLevel = inventory.getStockLevel();
         Integer newStockLevel = stockLevel - dto.getQuantity();
         inventory.setStockLevel(newStockLevel);
         inventoryRepository.save(inventory);
 
-        Product product = productRepository.findById(dto.getId());
-
-        if(product == null) {
-            throw new ProductNotFoundException(dto.getId());
-        }
+        Product product = productRepository.findById(dto.getId())
+                .orElseThrow(() -> new ProductNotFoundException(dto.getId()));
 
         OrderItem orderItem = new OrderItem(orderDetails, product, dto.getQuantity(), dto.getPrice());
-        orderItemRepository.save(orderItem)
+        orderItemRepository.save(orderItem);
     }
 
 }

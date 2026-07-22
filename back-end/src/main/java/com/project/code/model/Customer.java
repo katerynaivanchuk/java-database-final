@@ -1,5 +1,11 @@
 package com.project.code.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.List;
+
 @Entity
 public class Customer {
 
@@ -8,7 +14,7 @@ public class Customer {
 //    - It should be auto-incremented.
 //    - Use @Id to mark it as the primary key and @GeneratedValue(strategy = GenerationType.IDENTITY) to auto-increment it.
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
 // 2. Add 'name' field:
@@ -54,10 +60,14 @@ public class Customer {
 //    - Example: public String getName(), public void setName(String name)
 //    - Add getters and setters for 'email' and 'phone' fields as well.
 
-    Customer(String name, String email, Strig phone) {
+    public Customer(String name, String email, String phone) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Customer() {
+
     }
 
     public Long getId() {

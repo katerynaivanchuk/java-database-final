@@ -1,6 +1,8 @@
 package com.project.code.repo;
 
 
+import com.project.code.model.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 // 1. Add the repository interface:

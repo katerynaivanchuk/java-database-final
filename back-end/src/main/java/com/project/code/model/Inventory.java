@@ -1,5 +1,10 @@
 package com.project.code.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
+import com.project.code.model.Product;
+import com.project.code.model.Store;
+
 @Entity
 public class Inventory {
    // 1. Add 'id' field:
@@ -9,7 +14,7 @@ public class Inventory {
 //    - Use @GeneratedValue(strategy = GenerationType.IDENTITY) to auto-increment it.
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 // 2. Add 'product' field:
@@ -19,7 +24,7 @@ public class Inventory {
 
     @ManyToOne
     @JsonBackReference("inventory-product")
-    @JoinColumn("product_id")
+    @JoinColumn(referencedColumnName = "product_id")
     private Product product;
 
 // 3. Add 'store' field:
@@ -29,7 +34,7 @@ public class Inventory {
 
     @ManyToOne
     @JsonBackReference("inventory-store")
-    @JoinColumn("store_id")
+    @JoinColumn(referencedColumnName = "store_id")
     private Store store;
 // 4. Add 'stockLevel' field:
 //    - Type: private Integer
@@ -54,6 +59,10 @@ public class Inventory {
         this.product = product;
         this.store = store;
         this.stockLevel = stockLevel;
+    }
+
+    public Inventory() {
+
     }
 
 // 8. Add @Entity annotation:

@@ -1,5 +1,13 @@
 package com.project.code.repo;
 
+import com.project.code.model.Inventory;
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
 @Repository
 public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 
@@ -15,7 +23,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
 //      - Return type: Inventory
 //      - Parameters: Long productId, Long storeId
 
-      public Inventory findByProductIdandStoreId(Long productId, Long storeId);
+      public Inventory findByProduct_IdAndStore_Id(Long productId, Long storeId);
 // Example: public Inventory findByProductIdandStoreId(Long productId, Long storeId);
 
 //    - **findByStore_Id**:
@@ -34,5 +42,7 @@ public interface InventoryRepository extends JpaRepository<Inventory, Long> {
     @Modifying
     @Transactional
     public void deleteByProductId(Long productId);
+
+
 
 }

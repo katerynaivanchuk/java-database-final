@@ -1,5 +1,8 @@
 package com.project.code.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 @Entity
 public class OrderItem {
 
@@ -45,19 +48,20 @@ public class OrderItem {
 //    - Type: private Double
 //    - This field represents the price of the product at the time of the order.
 
-    private Doubl price;
+    private Double price;
 
 // 6. Add constructors:
 //    - A no-argument constructor.
 //    - A parameterized constructor that accepts OrderDetails, Product, quantity, and price as parameters.
 
-    OrderItem() {}
-    OrderItem(OrderDetails order, Product product, Integer quantity, Double price) {
+    public OrderItem() {}
+    public OrderItem(OrderDetails order, Product product, Integer quantity, Double price) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
         this.price = price; 
     }
+
 // 7. Add @Entity annotation:
 //    - Use @Entity above the class name to mark it as a JPA entity.
 

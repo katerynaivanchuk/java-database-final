@@ -1,5 +1,9 @@
 package com.project.code.model;
 
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 @Document(collection = "reviews")
 public class Review {
 

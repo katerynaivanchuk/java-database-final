@@ -1,6 +1,11 @@
 package com.project.code.repo;
 
-public interface ReviewRepository extends MongoRepository<Review, String>{
+import com.project.code.model.Review;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+import java.util.List;
+
+public interface ReviewRepository extends MongoRepository<Review, String> {
 // 1. Add the repository interface:
 //    - Extend MongoRepository<Review, String> to inherit basic CRUD functionality for MongoDB operations.
 //    - This allows the repository to perform operations like save, delete, update, and find without having to implement these methods manually.

@@ -1,6 +1,9 @@
 package com.project.code.repo;
 
 
+import com.project.code.model.OrderDetails;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long> {
 // 1. Add the repository interface:
 //    - Extend JpaRepository<OrderDetails, Long> to inherit basic CRUD functionality.

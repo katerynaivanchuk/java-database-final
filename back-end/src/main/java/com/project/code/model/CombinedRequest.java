@@ -1,4 +1,7 @@
-package com.project.code.odel;
+package com.project.code.model;
+
+import com.project.code.model.Inventory;
+import com.project.code.model.Product;
 
 public class CombinedRequest {
     

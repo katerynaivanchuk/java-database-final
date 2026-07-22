@@ -1,5 +1,13 @@
 package com.project.code.repo;
 
+import com.project.code.model.Store;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
+import java.util.Optional;
+
 public interface StoreRepository extends JpaRepository<Store,Long> {
 // 1. Add the repository interface:
 //    - Extend JpaRepository<Store, Long> to inherit basic CRUD functionality.
@@ -25,7 +33,7 @@ public interface StoreRepository extends JpaRepository<Store,Long> {
 
     @Query("""
     SELECT * FROM STORE s 
-    WHERE s.name LIKE CONCAT('%', :sname, '%')"
+    WHERE s.name LIKE CONCAT('%', :sname, '%')
     """)
     public List<Store> findBySubName(@Param("sname") String sname);
 

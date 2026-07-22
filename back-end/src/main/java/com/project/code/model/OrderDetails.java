@@ -1,7 +1,11 @@
 package com.project.code.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class OrderDetails {
@@ -63,12 +67,16 @@ public class OrderDetails {
 // 7. Add constructors:
 //    - A no-argument constructor.
 //    - A parameterized constructor that accepts Customer, Store, totalPrice, and date as parameters.
-    OrderDetails() {}
-    OrderDetails(Customer customer, Store store, Double totalPrice, LocalDateTime date) {
+
+    public OrderDetails(Customer customer, Store store, Double totalPrice, LocalDateTime date) {
         this.customer = customer;
         this.store = store;
         this.totalPrice = totalPrice;
         this.date = date;
+    }
+
+    public OrderDetails() {
+
     }
 
 // 8. Add @Entity annotation:
@@ -121,7 +129,7 @@ public class OrderDetails {
         this.date = date;
     }
 
-    public void setOrderItems(List<OrderItems> orderItems) {
+    public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems; 
     }
     
