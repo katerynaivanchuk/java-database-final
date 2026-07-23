@@ -101,6 +101,14 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public List<OrderDetails> getOrders() {
+        return orders;
+    }
+    
+    public void setOrders(List<OrderDetails> orders) {
+        this.orders = orders;
+    }
         
 // 7. Ensure to use proper annotations and validate constraints:
 //    - Use @NotNull for fields that cannot be empty like 'name', 'email', and 'phone'.
